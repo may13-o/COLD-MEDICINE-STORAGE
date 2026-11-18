@@ -1192,7 +1192,7 @@ LOAD C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86
  .FlashConfig   0x00000400       0x10 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/gcc/startup_MCXC444.S.obj
                 0x00000410                        . = ALIGN (0x4)
 
-.text           0x00000410     0x2890
+.text           0x00000410     0x257c
                 0x00000410                        . = ALIGN (0x4)
  *(.text)
  .text          0x00000410       0x80 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crt0.o
@@ -1410,180 +1410,180 @@ LOAD C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86
                 0x00001e04       0x34 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
  .text.PORT_SetPinConfig
                 0x00001e38       0x48 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- .text.delay_ms
-                0x00001e80       0x30 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- .text.i2c_pins_init
-                0x00001eb0       0x58 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- .text.i2c_bus_init
-                0x00001f08       0x34 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- .text.i2c_stop_timeout
-                0x00001f3c       0x48 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- .text.i2c_probe
-                0x00001f84       0xa4 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- .text.oled_write
-                0x00002028       0x7c CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- .text.oled_cmd
-                0x000020a4       0x2a CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- *fill*         0x000020ce        0x2 
- .text.oled_init
-                0x000020d0       0x54 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- .text.oled_fill
-                0x00002124      0x114 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- .text.main     0x00002238      0x1c0 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
-                0x00002238                main
- .text.exit     0x000023f8       0x28 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-exit.o)
-                0x000023f8                exit
- .text.memset   0x00002420       0x10 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-memset.o)
-                0x00002420                memset
+ .text.OLED_PinsInit
+                0x00001e80       0x58 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .text.OLED_I2CInit
+                0x00001ed8       0x34 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .text.OLED_Write
+                0x00001f0c       0x74 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .text.OLED_SendCommands
+                0x00001f80       0x20 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .text.OLED_Init
+                0x00001fa0       0x1c CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .text.OLED_SetWindow
+                0x00001fbc       0x1c CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .text.OLED_Fill
+                0x00001fd8       0x7e CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ *fill*         0x00002056        0x2 
+ .text.main     0x00002058      0x13c CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+                0x00002058                main
+ .text.exit     0x00002194       0x28 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-exit.o)
+                0x00002194                exit
+ .text.memset   0x000021bc       0x10 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-memset.o)
+                0x000021bc                memset
  .text.__libc_init_array
-                0x00002430       0x48 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-init.o)
-                0x00002430                __libc_init_array
- .text.memcpy   0x00002478       0x12 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-memcpy-stub.o)
-                0x00002478                memcpy
- *fill*         0x0000248a        0x2 
+                0x000021cc       0x48 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-init.o)
+                0x000021cc                __libc_init_array
+ .text.memcpy   0x00002214       0x12 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-memcpy-stub.o)
+                0x00002214                memcpy
+ *fill*         0x00002226        0x2 
  .text.__muldi3
-                0x0000248c       0x5c C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
-                0x0000248c                __muldi3
-                0x0000248c                __aeabi_lmul
+                0x00002228       0x5c C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
+                0x00002228                __muldi3
+                0x00002228                __aeabi_lmul
  .text.__udivmoddi4
-                0x000024e8      0x198 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
-                0x000024e8                __udivmoddi4
- .text._exit    0x00002680        0x4 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libnosys.a(_exit.o)
-                0x00002680                _exit
+                0x00002284      0x198 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
+                0x00002284                __udivmoddi4
+ .text._exit    0x0000241c        0x4 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libnosys.a(_exit.o)
+                0x0000241c                _exit
  *(.rodata)
- .rodata        0x00002684       0x59 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
- *fill*         0x000026dd        0x3 
- .rodata        0x000026e0       0x4b CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/common/fsl_common_arm.c.obj
- *fill*         0x0000272b        0x1 
- .rodata        0x0000272c       0x88 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/gpio/fsl_gpio.c.obj
- .rodata        0x000027b4      0x106 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
- *fill*         0x000028ba        0x2 
- .rodata        0x000028bc       0x3e CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/components/assert/fsl_assert.c.obj
- *fill*         0x000028fa        0x2 
- .rodata        0x000028fc      0x20b CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .rodata        0x00002420       0x59 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
+ *fill*         0x00002479        0x3 
+ .rodata        0x0000247c       0x4b CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/common/fsl_common_arm.c.obj
+ *fill*         0x000024c7        0x1 
+ .rodata        0x000024c8       0x88 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/gpio/fsl_gpio.c.obj
+ .rodata        0x00002550      0x106 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
+ *fill*         0x00002656        0x2 
+ .rodata        0x00002658       0x3e CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/components/assert/fsl_assert.c.obj
+ *fill*         0x00002696        0x2 
+ .rodata        0x00002698      0x153 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
  *(.rodata*)
- *fill*         0x00002b07        0x1 
+ *fill*         0x000027eb        0x1 
  .rodata.lircFreqs.4
-                0x00002b08        0x8 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
+                0x000027ec        0x8 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
  .rodata.__func__.1
-                0x00002b10       0x14 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
+                0x000027f4       0x14 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
  .rodata.__func__.0
-                0x00002b24       0x17 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
- *fill*         0x00002b3b        0x1 
+                0x00002808       0x17 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
+ *fill*         0x0000281f        0x1 
  .rodata.__func__.0
-                0x00002b3c       0x13 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/common/fsl_common_arm.c.obj
- *fill*         0x00002b4f        0x1 
+                0x00002820       0x13 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/common/fsl_common_arm.c.obj
+ *fill*         0x00002833        0x1 
  .rodata.__func__.2
-                0x00002b50        0xd CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/gpio/fsl_gpio.c.obj
- *fill*         0x00002b5d        0x3 
+                0x00002834        0xd CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/gpio/fsl_gpio.c.obj
+ *fill*         0x00002841        0x3 
  .rodata.s_i2cDividerTable
-                0x00002b60       0x80 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
+                0x00002844       0x80 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
  .rodata.s_i2cClocks
-                0x00002be0        0x8 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
+                0x000028c4        0x8 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
  .rodata.s_i2cBases
-                0x00002be8        0x8 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
+                0x000028cc        0x8 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
  .rodata.__func__.16
-                0x00002bf0       0x10 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
+                0x000028d4       0x10 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
  .rodata.__func__.14
-                0x00002c00        0xf CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
- *fill*         0x00002c0f        0x1 
+                0x000028e4        0xf CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
+ *fill*         0x000028f3        0x1 
  .rodata.__func__.13
-                0x00002c10       0x1b CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
- *fill*         0x00002c2b        0x1 
+                0x000028f4       0x1b CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
+ *fill*         0x0000290f        0x1 
  .rodata.__func__.12
-                0x00002c2c       0x1b CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
- *fill*         0x00002c47        0x1 
+                0x00002910       0x1b CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
+ *fill*         0x0000292b        0x1 
  .rodata.mcgliteConfig_BOARD_BootClockRUN
-                0x00002c48        0x6 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/frdmmcxc444/clock_config.c.obj
-                0x00002c48                mcgliteConfig_BOARD_BootClockRUN
- *fill*         0x00002c4e        0x2 
+                0x0000292c        0x6 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/frdmmcxc444/clock_config.c.obj
+                0x0000292c                mcgliteConfig_BOARD_BootClockRUN
+ *fill*         0x00002932        0x2 
  .rodata.simConfig_BOARD_BootClockRUN
-                0x00002c50        0x8 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/frdmmcxc444/clock_config.c.obj
-                0x00002c50                simConfig_BOARD_BootClockRUN
- .rodata.__func__.1
-                0x00002c58       0x12 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- *fill*         0x00002c6a        0x2 
- .rodata.seq.0  0x00002c6c       0x19 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+                0x00002934        0x8 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/frdmmcxc444/clock_config.c.obj
+                0x00002934                simConfig_BOARD_BootClockRUN
+ .rodata.__func__.2
+                0x0000293c       0x12 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ *fill*         0x0000294e        0x2 
+ .rodata.initCommands.1
+                0x00002950       0x1a CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ *fill*         0x0000296a        0x2 
+ .rodata.windowCommands.0
+                0x0000296c        0x6 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
  *(.glue_7)
- .glue_7        0x00002c85        0x0 linker stubs
+ .glue_7        0x00002972        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x00002c85        0x0 linker stubs
+ .glue_7t       0x00002972        0x0 linker stubs
  *(.eh_frame)
- *fill*         0x00002c85        0x3 
- .eh_frame      0x00002c88        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
+ *fill*         0x00002972        0x2 
+ .eh_frame      0x00002974        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
  *(.init)
- .init          0x00002c88        0x4 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crti.o
-                0x00002c88                _init
- .init          0x00002c8c        0x8 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtn.o
+ .init          0x00002974        0x4 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crti.o
+                0x00002974                _init
+ .init          0x00002978        0x8 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtn.o
  *(.fini)
- .fini          0x00002c94        0x4 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crti.o
-                0x00002c94                _fini
- .fini          0x00002c98        0x8 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtn.o
-                0x00002ca0                        . = ALIGN (0x4)
+ .fini          0x00002980        0x4 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crti.o
+                0x00002980                _fini
+ .fini          0x00002984        0x8 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtn.o
+                0x0000298c                        . = ALIGN (0x4)
 
-.vfp11_veneer   0x00002ca0        0x0
- .vfp11_veneer  0x00002ca0        0x0 linker stubs
+.vfp11_veneer   0x0000298c        0x0
+ .vfp11_veneer  0x0000298c        0x0 linker stubs
 
-.v4_bx          0x00002ca0        0x0
- .v4_bx         0x00002ca0        0x0 linker stubs
+.v4_bx          0x0000298c        0x0
+ .v4_bx         0x0000298c        0x0 linker stubs
 
-.iplt           0x00002ca0        0x0
- .iplt          0x00002ca0        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
+.iplt           0x0000298c        0x0
+ .iplt          0x0000298c        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x00002ca0        0x8
-                0x00002ca0                        __exidx_start = .
+.ARM            0x0000298c        0x8
+                0x0000298c                        __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x00002ca0        0x8 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crt0.o
+ .ARM.exidx     0x0000298c        0x8 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crt0.o
                                  0x10 (size before relaxing)
  .ARM.exidx.text.__udivmoddi4
-                0x00002ca8        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
+                0x00002994        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
                                   0x8 (size before relaxing)
-                0x00002ca8                        __exidx_end = .
+                0x00002994                        __exidx_end = .
 
-.rel.dyn        0x00002ca8        0x0
- .rel.iplt      0x00002ca8        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
+.rel.dyn        0x00002994        0x0
+ .rel.iplt      0x00002994        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
 
-.ctors          0x00002ca8        0x0
-                0x00002ca8                        __CTOR_LIST__ = .
+.ctors          0x00002994        0x0
+                0x00002994                        __CTOR_LIST__ = .
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
  *(SORT_BY_NAME(.ctors.*))
  *(.ctors)
-                0x00002ca8                        __CTOR_END__ = .
+                0x00002994                        __CTOR_END__ = .
 
-.dtors          0x00002ca8        0x0
-                0x00002ca8                        __DTOR_LIST__ = .
+.dtors          0x00002994        0x0
+                0x00002994                        __DTOR_LIST__ = .
  *crtbegin.o(.dtors)
  *crtbegin?.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .dtors)
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
-                0x00002ca8                        __DTOR_END__ = .
+                0x00002994                        __DTOR_END__ = .
 
-.preinit_array  0x00002ca8        0x0
-                0x00002ca8                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x00002994        0x0
+                0x00002994                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x00002ca8                        PROVIDE (__preinit_array_end = .)
+                0x00002994                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x00002ca8        0x4
-                0x00002ca8                        PROVIDE (__init_array_start = .)
+.init_array     0x00002994        0x4
+                0x00002994                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x00002ca8        0x4 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
-                0x00002cac                        PROVIDE (__init_array_end = .)
+ .init_array    0x00002994        0x4 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
+                0x00002998                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x00002cac        0x4
+.fini_array     0x00002998        0x4
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x00002cac        0x4 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
+ .fini_array    0x00002998        0x4 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x00002cb0                        __etext = .
-                0x00002cb0                        __DATA_ROM = .
+                0x0000299c                        __etext = .
+                0x0000299c                        __DATA_ROM = .
 
 .mtb            0x1fffe000        0x0
                 0x1fffe000                        . = ALIGN (0x8)
@@ -1592,7 +1592,7 @@ LOAD C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86
                 0x1fffe000                        . = ALIGN (0x8)
                 0x1fffe000                        _mtb_end = .
 
-.data           0x1fffe000        0x4 load address 0x00002cb0
+.data           0x1fffe000        0x4 load address 0x0000299c
                 0x1fffe000                        . = ALIGN (0x4)
                 0x1fffe000                        __DATA_RAM = .
                 0x1fffe000                        __data_start__ = .
@@ -1608,21 +1608,21 @@ LOAD C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86
  *(.jcr*)
                 0x1fffe004                        . = ALIGN (0x4)
                 0x1fffe004                        __data_end__ = .
-                0x00002cb4                        __DATA_END = (__DATA_ROM + (__data_end__ - __data_start__))
+                0x000029a0                        __DATA_END = (__DATA_ROM + (__data_end__ - __data_start__))
                 0x00040000                        text_end = (ORIGIN (m_text) + LENGTH (m_text))
                 0x00000001                        ASSERT ((__DATA_END <= text_end), region m_text overflowed with text and data)
 
 .tm_clone_table
-                0x1fffe004        0x0 load address 0x00002cb4
+                0x1fffe004        0x0 load address 0x000029a0
  .tm_clone_table
                 0x1fffe004        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
  .tm_clone_table
                 0x1fffe004        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtend.o
 
-.igot.plt       0x1fffe004        0x0 load address 0x00002cb4
+.igot.plt       0x1fffe004        0x0 load address 0x000029a0
  .igot.plt      0x1fffe004        0x0 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/crtbegin.o
 
-.bss            0x1fffe004       0x58 load address 0x00002cb4
+.bss            0x1fffe004       0x58 load address 0x000029a0
                 0x1fffe004                        . = ALIGN (0x4)
                 0x1fffe004                        __START_BSS = .
                 0x1fffe004                        __bss_start__ = .
@@ -1657,7 +1657,7 @@ LOAD C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86
                 0x1fffe05c                        __bss_end__ = .
                 0x1fffe05c                        __END_BSS = .
 
-.heap           0x1fffe05c      0x404 load address 0x00002d0c
+.heap           0x1fffe05c      0x404 load address 0x000029f8
                 0x1fffe060                        . = ALIGN (0x8)
  *fill*         0x1fffe05c        0x4 
                 0x1fffe060                        __end__ = .
@@ -1668,7 +1668,7 @@ LOAD C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86
                 0x1fffe460                        __HeapLimit = .
                 0x1fffe460                        __heap_limit = .
 
-.stack          0x1fffe460      0x400 load address 0x00003110
+.stack          0x1fffe460      0x400 load address 0x00002dfc
                 0x1fffe460                        . = ALIGN (0x8)
                 0x1fffe860                        . = (. + STACK_SIZE)
  *fill*         0x1fffe460      0x400 
@@ -1767,7 +1767,7 @@ LOAD linker stubs
  .debug_line_str
                 0x0000030a       0xcd C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_clzsi2.o)
 
-.debug_info     0x00000000     0x8f2a
+.debug_info     0x00000000     0x8e03
  .debug_info    0x00000000      0x40b CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/system_MCXC444.c.obj
  .debug_info    0x0000040b      0x28b CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/gcc/startup_MCXC444.S.obj
  .debug_info    0x00000696     0x13cb CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
@@ -1780,9 +1780,9 @@ LOAD linker stubs
  .debug_info    0x0000753e      0xa71 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/frdmmcxc444/clock_config.c.obj
  .debug_info    0x00007faf      0x481 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/pin_mux.c.obj
  .debug_info    0x00008430       0x9b CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/hardware_init.c.obj
- .debug_info    0x000084cb      0xa5f CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .debug_info    0x000084cb      0x938 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
 
-.debug_abbrev   0x00000000     0x1947
+.debug_abbrev   0x00000000     0x1911
  .debug_abbrev  0x00000000      0x139 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/system_MCXC444.c.obj
  .debug_abbrev  0x00000139       0x26 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/gcc/startup_MCXC444.S.obj
  .debug_abbrev  0x0000015f      0x2fe CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
@@ -1795,9 +1795,9 @@ LOAD linker stubs
  .debug_abbrev  0x00001222      0x1fb CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/frdmmcxc444/clock_config.c.obj
  .debug_abbrev  0x0000141d      0x1bb CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/pin_mux.c.obj
  .debug_abbrev  0x000015d8       0x57 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/hardware_init.c.obj
- .debug_abbrev  0x0000162f      0x318 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .debug_abbrev  0x0000162f      0x2e2 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
 
-.debug_aranges  0x00000000      0x690
+.debug_aranges  0x00000000      0x680
  .debug_aranges
                 0x00000000       0x30 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/system_MCXC444.c.obj
  .debug_aranges
@@ -1823,10 +1823,10 @@ LOAD linker stubs
  .debug_aranges
                 0x000005f8       0x20 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/hardware_init.c.obj
  .debug_aranges
-                0x00000618       0x78 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+                0x00000618       0x68 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
 
 .debug_rnglists
-                0x00000000      0x4c7
+                0x00000000      0x4b9
  .debug_rnglists
                 0x00000000       0x20 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/system_MCXC444.c.obj
  .debug_rnglists
@@ -1850,9 +1850,9 @@ LOAD linker stubs
  .debug_rnglists
                 0x0000045c       0x13 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/hardware_init.c.obj
  .debug_rnglists
-                0x0000046f       0x58 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+                0x0000046f       0x4a CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
 
-.debug_line     0x00000000     0x549c
+.debug_line     0x00000000     0x52f6
  .debug_line    0x00000000      0x278 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/system_MCXC444.c.obj
  .debug_line    0x00000278       0xd9 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/gcc/startup_MCXC444.S.obj
  .debug_line    0x00000351      0x896 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
@@ -1865,23 +1865,23 @@ LOAD linker stubs
  .debug_line    0x00004560      0x385 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/frdmmcxc444/clock_config.c.obj
  .debug_line    0x000048e5      0x2f8 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/pin_mux.c.obj
  .debug_line    0x00004bdd       0xde CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/hardware_init.c.obj
- .debug_line    0x00004cbb      0x7e1 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .debug_line    0x00004cbb      0x63b CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
 
-.debug_str      0x00000000     0x4ba2
- .debug_str     0x00000000     0x4ba2 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/system_MCXC444.c.obj
+.debug_str      0x00000000     0x4bae
+ .debug_str     0x00000000     0x4bae CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/system_MCXC444.c.obj
                                 0x34a (size before relaxing)
- .debug_str     0x00004ba2      0x423 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/gcc/startup_MCXC444.S.obj
- .debug_str     0x00004ba2     0x1979 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
- .debug_str     0x00004ba2      0x225 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/common/fsl_common_arm.c.obj
- .debug_str     0x00004ba2      0xf20 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/gpio/fsl_gpio.c.obj
- .debug_str     0x00004ba2     0x1e82 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
- .debug_str     0x00004ba2     0x221c CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/lpuart/fsl_lpuart.c.obj
- .debug_str     0x00004ba2      0x1f2 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/components/assert/fsl_assert.c.obj
- .debug_str     0x00004ba2     0x142f CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/components/debug_console_lite/fsl_debug_console.c.obj
- .debug_str     0x00004ba2     0x1412 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/frdmmcxc444/clock_config.c.obj
- .debug_str     0x00004ba2      0x5f5 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/pin_mux.c.obj
- .debug_str     0x00004ba2      0x1f4 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/hardware_init.c.obj
- .debug_str     0x00004ba2      0xa3a CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .debug_str     0x00004bae      0x423 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/gcc/startup_MCXC444.S.obj
+ .debug_str     0x00004bae     0x1979 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
+ .debug_str     0x00004bae      0x225 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/common/fsl_common_arm.c.obj
+ .debug_str     0x00004bae      0xf20 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/gpio/fsl_gpio.c.obj
+ .debug_str     0x00004bae     0x1e82 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/i2c/fsl_i2c.c.obj
+ .debug_str     0x00004bae     0x221c CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/lpuart/fsl_lpuart.c.obj
+ .debug_str     0x00004bae      0x1f2 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/components/assert/fsl_assert.c.obj
+ .debug_str     0x00004bae     0x142f CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/components/debug_console_lite/fsl_debug_console.c.obj
+ .debug_str     0x00004bae     0x1412 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/frdmmcxc444/clock_config.c.obj
+ .debug_str     0x00004bae      0x5f5 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/pin_mux.c.obj
+ .debug_str     0x00004bae      0x1f4 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/hardware_init.c.obj
+ .debug_str     0x00004bae      0x961 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
 
 .comment        0x00000000       0x45
  .comment       0x00000000       0x45 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/system_MCXC444.c.obj
@@ -1898,7 +1898,7 @@ LOAD linker stubs
  .comment       0x00000045       0x46 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/hardware_init.c.obj
  .comment       0x00000045       0x46 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
 
-.debug_frame    0x00000000     0x185c
+.debug_frame    0x00000000     0x1810
  .debug_frame   0x00000000       0x68 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/system_MCXC444.c.obj
  .debug_frame   0x00000068      0x2e8 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.c.obj
  .debug_frame   0x00000350       0x54 CMakeFiles/COLD_MEDICINE_STORAGE.dir/C_/NXP/mcuxsdk/mcuxsdk/drivers/common/fsl_common_arm.c.obj
@@ -1910,13 +1910,13 @@ LOAD linker stubs
  .debug_frame   0x000012cc       0xc0 CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/frdmmcxc444/clock_config.c.obj
  .debug_frame   0x0000138c       0x8c CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/pin_mux.c.obj
  .debug_frame   0x00001418       0x2c CMakeFiles/COLD_MEDICINE_STORAGE.dir/frdmmcxc444/led_blinky/hardware_init.c.obj
- .debug_frame   0x00001444      0x194 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
- .debug_frame   0x000015d8       0x28 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-exit.o)
- .debug_frame   0x00001600      0x138 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-findfp.o)
- .debug_frame   0x00001738       0x20 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-memset.o)
- .debug_frame   0x00001758       0x2c C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-init.o)
- .debug_frame   0x00001784       0x28 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-memcpy-stub.o)
- .debug_frame   0x000017ac       0x20 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_udivsi3.o)
- .debug_frame   0x000017cc       0x34 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
- .debug_frame   0x00001800       0x3c C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
- .debug_frame   0x0000183c       0x20 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libnosys.a(_exit.o)
+ .debug_frame   0x00001444      0x148 CMakeFiles/COLD_MEDICINE_STORAGE.dir/led_blinky.c.obj
+ .debug_frame   0x0000158c       0x28 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-exit.o)
+ .debug_frame   0x000015b4      0x138 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-findfp.o)
+ .debug_frame   0x000016ec       0x20 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-memset.o)
+ .debug_frame   0x0000170c       0x2c C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-init.o)
+ .debug_frame   0x00001738       0x28 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libc_nano.a(libc_a-memcpy-stub.o)
+ .debug_frame   0x00001760       0x20 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_udivsi3.o)
+ .debug_frame   0x00001780       0x34 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_muldi3.o)
+ .debug_frame   0x000017b4       0x3c C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x000017f0       0x20 C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp\libnosys.a(_exit.o)

@@ -1,22 +1,23 @@
+
 /*
- * FRDM-MCXC444 - OLED (SSD1306 0.96") bring-up test
+ * Project: External OLED Display Test
+ * Board:   NXP FRDM-MCXC444
+ * Display: SSD1306 0.96-inch OLED
+ * Size:    128 x 64
+ * Bus:     I2C1
+ * Address: 0x3C
  *
- * Wiring (mikroBUS socket, see board pinout):
- *   OLED SCL -> PTC1      OLED SDA -> PTC2
- *   OLED VCC -> 3V3 (NOT 5V0)      OLED GND -> GND
- *
- * Stage 1: scans I2C 0x08..0x77 and prints every address that ACKs.
- * Stage 2: if 0x3C or 0x3D answers, initialises the SSD1306 and cycles
- *          full white / black / stripes once per second.
- *
- * ASSUMPTION TO VERIFY: PTC1/PTC2 are I2C1_SCL/I2C1_SDA on mux ALT2 (as on other
- * Kinetis L parts). If the scan finds nothing, open the Pins tool, click PTC1/PTC2
- * and confirm which I2C instance/ALT they offer, then change the three defines below.
+ * mikroBUS connections:
+ * OLED VCC -> 3.3V
+ * OLED GND -> GND
+ * OLED SCL -> PTC1
+ * OLED SDA -> PTC2
  */
 
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+
 #include "board.h"
 #include "clock_config.h"
 #include "pin_mux.h"
@@ -26,205 +27,248 @@
 #include "fsl_i2c.h"
 #include "fsl_debug_console.h"
 
-/* Defined in this project's hardware_init.c (pins, clocks, debug console). */
 void BOARD_InitHardware(void);
 
-/* ---- change these three if the Pins tool shows a different instance/ALT ---- */
-#define OLED_I2C_BASE      I2C1
-#define OLED_PIN_MUX       kPORT_MuxAlt2
-#define OLED_I2C_BAUD      100000U
+/* OLED configuration */
+#define OLED_I2C             I2C1
+#define OLED_ADDRESS         0x3CU
+#define OLED_WIDTH           128U
+#define OLED_HEIGHT          64U
 
-/* ---- board init: use the same call(s) your working blinky used ---- */
-#define USE_BOARD_INIT_HARDWARE 1
+#define OLED_SCL_PIN         1U
+#define OLED_SDA_PIN         2U
 
-static void delay_ms(uint32_t ms)
+/* -------------------------------------------------
+ * Configure I2C pins
+ * ------------------------------------------------- */
+static void OLED_PinsInit(void)
 {
-    SDK_DelayAtLeastUs(ms * 1000U, SystemCoreClock);
-}
-
-static void i2c_pins_init(void)
-{
-    port_pin_config_t cfg = {0};
-    cfg.pullSelect = kPORT_PullUp;      /* helps if the module has weak/no pull-ups */
-    cfg.mux        = OLED_PIN_MUX;
+    port_pin_config_t config = {0};
 
     CLOCK_EnableClock(kCLOCK_PortC);
-    PORT_SetPinConfig(PORTC, 1U, &cfg); /* PTC1 = SCL */
-    PORT_SetPinConfig(PORTC, 2U, &cfg); /* PTC2 = SDA */
+
+    config.pullSelect = kPORT_PullUp;
+    config.mux = kPORT_MuxAlt2;
+
+    PORT_SetPinConfig(PORTC, OLED_SCL_PIN, &config);
+    PORT_SetPinConfig(PORTC, OLED_SDA_PIN, &config);
 }
 
-static void i2c_bus_init(void)
+/* -------------------------------------------------
+ * Initialise I2C peripheral
+ * ------------------------------------------------- */
+static void OLED_I2CInit(void)
 {
-    i2c_master_config_t m;
-    I2C_MasterGetDefaultConfig(&m);
-    m.baudRate_Bps = OLED_I2C_BAUD;
-    I2C_MasterInit(OLED_I2C_BASE, &m, CLOCK_GetBusClkFreq());
+    i2c_master_config_t config;
+
+    I2C_MasterGetDefaultConfig(&config);
+
+    config.baudRate_Bps = 100000U;
+
+    I2C_MasterInit(
+        OLED_I2C,
+        &config,
+        CLOCK_GetBusClkFreq()
+    );
 }
 
-/* Same as I2C_MasterStop() but gives up instead of waiting forever if the bus never idles. */
-static void i2c_stop_timeout(void)
+/* -------------------------------------------------
+ * Send command/data to OLED
+ *
+ * Control byte:
+ * 0x00 = command
+ * 0x40 = display data
+ * ------------------------------------------------- */
+static bool OLED_Write(uint8_t control,
+                       const uint8_t *data,
+                       size_t length)
 {
-    uint32_t guard = 20000U;
-    OLED_I2C_BASE->C1 &= (uint8_t)~(I2C_C1_MST_MASK | I2C_C1_TX_MASK | I2C_C1_TXAK_MASK);
-    while (((OLED_I2C_BASE->S & kI2C_BusBusyFlag) != 0U) && (guard > 0U))
+    i2c_master_transfer_t transfer = {0};
+
+    transfer.flags = kI2C_TransferDefaultFlag;
+    transfer.slaveAddress = OLED_ADDRESS;
+    transfer.direction = kI2C_Write;
+
+    transfer.subaddress = control;
+    transfer.subaddressSize = 1U;
+
+    transfer.data = (uint8_t *)data;
+    transfer.dataSize = length;
+
+    status_t status = I2C_MasterTransferBlocking(
+        OLED_I2C,
+        &transfer
+    );
+
+    return (status == kStatus_Success);
+}
+
+/* -------------------------------------------------
+ * Send multiple OLED commands in one transaction
+ * ------------------------------------------------- */
+static bool OLED_SendCommands(const uint8_t *commands,
+                              size_t length)
+{
+    return OLED_Write(0x00U, commands, length);
+}
+
+/* -------------------------------------------------
+ * SSD1306 initialisation
+ * ------------------------------------------------- */
+static bool OLED_Init(void)
+{
+    static const uint8_t initCommands[] =
     {
-        guard--;
+        0xAE,             /* Display OFF */
+
+        0xD5, 0x80,       /* Display clock */
+        0xA8, 0x3F,       /* Multiplex ratio */
+        0xD3, 0x00,       /* Display offset */
+        0x40,             /* Start line */
+
+        0x8D, 0x14,       /* Charge pump */
+
+        0x20, 0x00,       /* Horizontal addressing */
+
+        0xA1,             /* Segment remap */
+        0xC8,             /* COM scan direction */
+
+        0xDA, 0x12,       /* COM pins */
+
+        0x81, 0xCF,       /* Contrast */
+
+        0xD9, 0xF1,       /* Pre-charge */
+        0xDB, 0x40,       /* VCOMH */
+
+        0xA4,             /* Normal display */
+        0xA6,             /* Non-inverted display */
+
+        0x2E,             /* Disable scrolling */
+
+        0xAF              /* Display ON */
+    };
+
+    return OLED_SendCommands(
+        initCommands,
+        sizeof(initCommands)
+    );
+}
+
+/* -------------------------------------------------
+ * Set display memory window
+ * ------------------------------------------------- */
+static bool OLED_SetWindow(void)
+{
+    static const uint8_t windowCommands[] =
+    {
+        0x21, 0x00, 0x7F,
+        0x22, 0x00, 0x07
+    };
+
+    return OLED_SendCommands(
+        windowCommands,
+        sizeof(windowCommands)
+    );
+}
+
+/* -------------------------------------------------
+ * Fill complete OLED display
+ * ------------------------------------------------- */
+static bool OLED_Fill(uint8_t pattern)
+{
+    uint8_t buffer[16];
+
+    for (uint32_t i = 0; i < sizeof(buffer); i++)
+    {
+        buffer[i] = pattern;
     }
-}
 
-/* Address-only probe: true if a device ACKs its 7-bit address. */
-static bool i2c_probe(uint8_t addr7)
-{
-    uint32_t guard = 100000U;
-
-    if (I2C_MasterStart(OLED_I2C_BASE, addr7, kI2C_Write) != kStatus_Success)
+    if (!OLED_SetWindow())
     {
-        i2c_stop_timeout();
         return false;
     }
-    while (((OLED_I2C_BASE->S & kI2C_TransferCompleteFlag) == 0U) && (guard-- > 0U))
+
+    for (uint32_t i = 0;
+         i < (OLED_WIDTH * OLED_HEIGHT / 8U) / sizeof(buffer);
+         i++)
     {
+        if (!OLED_Write(0x40U, buffer, sizeof(buffer)))
+        {
+            return false;
+        }
     }
-    bool nak = ((OLED_I2C_BASE->S & kI2C_ReceiveNakFlag) != 0U) || (guard == 0U);
-    OLED_I2C_BASE->S = kI2C_IntPendingFlag; /* clear flag (write 1 to clear) */
-    i2c_stop_timeout();
-    delay_ms(1);
-    return !nak;
-}
 
-/* ctrl: 0x00 = command bytes follow, 0x40 = display data follows */
-static bool oled_write(uint8_t addr7, uint8_t ctrl, const uint8_t *data, size_t len)
-{
-    i2c_master_transfer_t x = {0};
-    x.flags          = kI2C_TransferDefaultFlag;
-    x.slaveAddress   = addr7;
-    x.direction      = kI2C_Write;
-    x.subaddress     = ctrl;
-    x.subaddressSize = 1U;
-    x.data           = (uint8_t *)data;
-    x.dataSize       = len;
-    return I2C_MasterTransferBlocking(OLED_I2C_BASE, &x) == kStatus_Success;
-}
-
-static bool oled_cmd(uint8_t addr7, uint8_t c)
-{
-    return oled_write(addr7, 0x00U, &c, 1U);
-}
-
-static bool oled_init(uint8_t a)
-{
-    static const uint8_t seq[] = {
-        0xAE,             /* display off */
-        0xD5, 0x80,       /* clock divide */
-        0xA8, 0x3F,       /* multiplex 64 */
-        0xD3, 0x00,       /* display offset */
-        0x40,             /* start line 0 */
-        0x8D, 0x14,       /* charge pump on */
-        0x20, 0x00,       /* horizontal addressing */
-        0xA1,             /* segment remap */
-        0xC8,             /* COM scan direction */
-        0xDA, 0x12,       /* COM pins */
-        0x81, 0xCF,       /* contrast */
-        0xD9, 0xF1,       /* pre-charge */
-        0xDB, 0x40,       /* VCOM detect */
-        0xA4,             /* resume from RAM */
-        0xA6,             /* normal (not inverted) */
-        0xAF              /* display on */
-    };
-    for (size_t i = 0; i < sizeof(seq); i++)
-    {
-        if (!oled_cmd(a, seq[i])) return false;
-    }
     return true;
 }
 
-static bool oled_fill(uint8_t a, uint8_t pattern)
-{
-    uint8_t buf[16];
-    for (size_t i = 0; i < sizeof(buf); i++) buf[i] = pattern;
-
-    if (!oled_cmd(a, 0x21) || !oled_cmd(a, 0) || !oled_cmd(a, 127)) return false; /* columns */
-    if (!oled_cmd(a, 0x22) || !oled_cmd(a, 0) || !oled_cmd(a, 7))   return false; /* pages   */
-
-    for (uint32_t n = 0; n < (128U * 8U) / sizeof(buf); n++)
-    {
-        if (!oled_write(a, 0x40U, buf, sizeof(buf))) return false;
-    }
-    return true;
-}
-
+/* -------------------------------------------------
+ * Main application
+ * ------------------------------------------------- */
 int main(void)
 {
-#if USE_BOARD_INIT_HARDWARE
     BOARD_InitHardware();
-#else
-    BOARD_InitBootPins();
-    BOARD_InitBootClocks();
-    BOARD_InitDebugConsole();
-#endif
 
-    i2c_pins_init();
-    i2c_bus_init();
+    PRINTF("\r\n");
+    PRINTF("================================\r\n");
+    PRINTF(" FRDM-MCXC444 OLED APPLICATION\r\n");
+    PRINTF(" SSD1306 128x64 I2C DISPLAY\r\n");
+    PRINTF("================================\r\n");
 
-    PRINTF("\r\n=== OLED bring-up test (I2C: SCL=PTC1, SDA=PTC2) ===\r\n");
+    /* Hardware initialisation */
+    OLED_PinsInit();
+    OLED_I2CInit();
 
-    for (;;)
+    PRINTF("I2C initialised.\r\n");
+
+    /* Initialise display */
+    if (!OLED_Init())
     {
-        uint8_t oled = 0;
-        uint32_t found = 0;
+        PRINTF("OLED initialisation FAILED!\r\n");
 
-        PRINTF("Scanning I2C...\r\n");
-        for (uint8_t a = 0x08; a <= 0x77; a++)
+        while (1)
         {
-            if (i2c_probe(a))
-            {
-                PRINTF("  device at 0x%02X\r\n", a);
-                found++;
-                if ((a == 0x3C) || (a == 0x3D)) oled = a;
-            }
+            /* Stop here */
         }
-        PRINTF("Scan done: %u device(s)\r\n", (unsigned int)found);
+    }
 
-        if (oled == 0)
+    PRINTF("OLED initialised successfully.\r\n");
+
+    /* Main display test */
+    while (1)
+    {
+        PRINTF("OLED WHITE TEST\r\n");
+
+        if (!OLED_Fill(0xFFU))
         {
-            PRINTF("OLED NOT FOUND. Check: VCC on 3V3, GND, SCL->PTC1, SDA->PTC2, jumper contacts,\r\n"
-                   "and Pins-tool I2C instance/ALT for PTC1/PTC2.\r\n\r\n");
-            delay_ms(2000);
-            continue;
+            PRINTF("OLED write error!\r\n");
+            break;
         }
 
-        PRINTF("OLED at 0x%02X, initialising...\r\n", oled);
-        if (!oled_init(oled))
+        SDK_DelayAtLeastUs(1500000U, SystemCoreClock);
+
+        PRINTF("OLED BLACK TEST\r\n");
+
+        if (!OLED_Fill(0x00U))
         {
-            PRINTF("OLED init failed (command write NACK)\r\n");
-            delay_ms(2000);
-            continue;
+            PRINTF("OLED write error!\r\n");
+            break;
         }
 
-        PRINTF("Cycling white / black / stripes. Watch the screen.\r\n");
-        for (;;)
+        SDK_DelayAtLeastUs(1500000U, SystemCoreClock);
+
+        PRINTF("OLED STRIPE TEST\r\n");
+
+        if (!OLED_Fill(0xAAU))
         {
-            if (!oled_fill(oled, 0xFF))
-            {
-                break;
-            }
-            PRINTF("white\r\n");
-            delay_ms(1000);
-
-            if (!oled_fill(oled, 0x00))
-            {
-                break;
-            }
-            PRINTF("black\r\n");
-            delay_ms(1000);
-
-            if (!oled_fill(oled, 0xAA))
-            {
-                break;
-            }
-            PRINTF("stripes\r\n");
-            delay_ms(1000);
+            PRINTF("OLED write error!\r\n");
+            break;
         }
-        PRINTF("Display write failed, rescanning\r\n");
+
+        SDK_DelayAtLeastUs(1500000U, SystemCoreClock);
+    }
+
+    while (1)
+    {
+        /* Error state */
     }
 }
