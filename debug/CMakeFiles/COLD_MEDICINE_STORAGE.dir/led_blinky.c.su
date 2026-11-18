@@ -1,10 +1,7 @@
-C:/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.h:437:20:CLOCK_EnableClock	24	static
-C:/NXP/mcuxsdk/mcuxsdk/drivers/port/fsl_port.h:360:20:PORT_SetPinConfig	32	static
-C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:44:13:OLED_PinsInit	16	static
-C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:60:13:OLED_I2CInit	24	static
-C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:82:13:OLED_Write	64	static
-C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:109:13:OLED_SendCommands	16	static
-C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:118:13:OLED_Init	8	static
-C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:160:13:OLED_SetWindow	8	static
-C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:177:13:OLED_Fill	40	static
-C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:207:5:main	8	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:46:16:SHT40_CRC8	24	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:75:17:SHT40_WriteCommand	48	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:93:17:SHT40_ReadBytes	48	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:111:13:SHT40_Init	8	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:136:13:SHT40_ReadTemperatureHumidity	40	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:209:13:SHT40_PrintValues	40	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/led_blinky.c:247:5:main	24	static

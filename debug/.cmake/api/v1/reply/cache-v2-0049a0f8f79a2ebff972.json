@@ -1470,7 +1470,7 @@
 					"value" : "No help, variable specified on the command line."
 				}
 			],
-			"type" : "UNINITIALIZED",
+			"type" : "FILEPATH",
 			"value" : "c:/NXP/mcuxsdk/mcuxsdk/cmake/toolchain/armgcc.cmake"
 		},
 		{
@@ -1667,7 +1667,43 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "C:\\IOTPROJECT\\COLD_MEDICINE_STORAGE//"
+			"value" : "C:/IOTPROJECT/COLD_MEDICINE_STORAGE//"
+		},
+		{
+			"name" : "Project_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/IOTPROJECT/COLD_MEDICINE_STORAGE/debug"
+		},
+		{
+			"name" : "Project_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "Project_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/IOTPROJECT/COLD_MEDICINE_STORAGE"
 		},
 		{
 			"name" : "Python3_EXECUTABLE",

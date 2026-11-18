@@ -58,19 +58,24 @@ BOARD_InitPins:
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void)
 {
-    /* Port E Clock Gate Control: Clock enabled */
+    /* Enable Port E clock for LED */
     CLOCK_EnableClock(kCLOCK_PortE);
 
+    /* Configure PTE31 as GPIO output */
     gpio_pin_config_t gpioe_pin19_config = {
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 0U
     };
-    /* Initialize GPIO functionality on pin PTE31 (pin 19)  */
-    GPIO_PinInit(GPIOE, 31U, &gpioe_pin19_config);
 
-    /* PORTE31 (pin 19) is configured as PTE31 */
+    GPIO_PinInit(GPIOE, 31U, &gpioe_pin19_config);
     PORT_SetPinMux(PORTE, 31U, kPORT_MuxAsGpio);
+
+    /* Enable Port A clock for LPUART0 */
+    CLOCK_EnableClock(kCLOCK_PortA);
+
+    /* Configure PTA1 as LPUART0_RX */
+    PORT_SetPinMux(PORTA, 1U, kPORT_MuxAlt2);
+
+    /* Configure PTA2 as LPUART0_TX */
+    PORT_SetPinMux(PORTA, 2U, kPORT_MuxAlt2);
 }
-/***********************************************************************************************************************
- * EOF
- **********************************************************************************************************************/
