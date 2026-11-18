@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/pwt_1",
+		"source" : "C:/NXP/mcuxsdk/mcuxsdk/drivers/pwt_1"
+	}
+}

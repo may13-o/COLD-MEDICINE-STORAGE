@@ -1,0 +1,4 @@
+C:/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.h:437:20:CLOCK_EnableClock	24	static
+C:/NXP/mcuxsdk/mcuxsdk/drivers/port/fsl_port.h:463:20:PORT_SetPinMux	24	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/frdmmcxc444/led_blinky/pin_mux.c:37:6:BOARD_InitBootPins	8	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/frdmmcxc444/led_blinky/pin_mux.c:59:6:BOARD_InitPins	16	static

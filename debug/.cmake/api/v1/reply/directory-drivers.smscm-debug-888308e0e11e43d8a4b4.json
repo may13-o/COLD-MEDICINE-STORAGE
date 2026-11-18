@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/smscm",
+		"source" : "C:/NXP/mcuxsdk/mcuxsdk/drivers/smscm"
+	}
+}

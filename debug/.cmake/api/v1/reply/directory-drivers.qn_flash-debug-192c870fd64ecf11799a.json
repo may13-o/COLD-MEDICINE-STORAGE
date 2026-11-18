@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/qn_flash",
+		"source" : "C:/NXP/mcuxsdk/mcuxsdk/drivers/qn_flash"
+	}
+}

@@ -1,155 +1,230 @@
 /*
- * FRDM-MCXC444 bring-up self-test
- * Replaces the blinky main(). Needs no external hardware.
+ * FRDM-MCXC444 - OLED (SSD1306 0.96") bring-up test
  *
- * Tests:
- *   1. Debug console over OpenSDA virtual COM (115200 8N1)
- *   2. Core clock report
- *   3. Chip unique ID read
- *   4. SysTick 1 ms tick
- *   5. SRAM pattern test (1 KB buffer)
- *   6. On-board RGB LED sequence, then green heartbeat
+ * Wiring (mikroBUS socket, see board pinout):
+ *   OLED SCL -> PTC1      OLED SDA -> PTC2
+ *   OLED VCC -> 3V3 (NOT 5V0)      OLED GND -> GND
  *
- * Result: PASS -> green heartbeat, FAIL -> red blinking fast.
+ * Stage 1: scans I2C 0x08..0x77 and prints every address that ACKs.
+ * Stage 2: if 0x3C or 0x3D answers, initialises the SSD1306 and cycles
+ *          full white / black / stripes once per second.
+ *
+ * ASSUMPTION TO VERIFY: PTC1/PTC2 are I2C1_SCL/I2C1_SDA on mux ALT2 (as on other
+ * Kinetis L parts). If the scan finds nothing, open the Pins tool, click PTC1/PTC2
+ * and confirm which I2C instance/ALT they offer, then change the three defines below.
  */
 
 #include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
 #include "board.h"
 #include "clock_config.h"
 #include "pin_mux.h"
 #include "fsl_common.h"
+#include "fsl_clock.h"
+#include "fsl_port.h"
+#include "fsl_i2c.h"
 #include "fsl_debug_console.h"
 
-#define RAM_TEST_WORDS 256U
+/* Defined in this project's hardware_init.c (pins, clocks, debug console). */
+void BOARD_InitHardware(void);
 
-static volatile uint32_t g_ms = 0;
-static volatile uint32_t g_ram[RAM_TEST_WORDS];
+/* ---- change these three if the Pins tool shows a different instance/ALT ---- */
+#define OLED_I2C_BASE      I2C1
+#define OLED_PIN_MUX       kPORT_MuxAlt2
+#define OLED_I2C_BAUD      100000U
 
-void SysTick_Handler(void)
-{
-    g_ms++;
-}
+/* ---- board init: use the same call(s) your working blinky used ---- */
+#define USE_BOARD_INIT_HARDWARE 1
 
 static void delay_ms(uint32_t ms)
 {
-    uint32_t start = g_ms;
-    while ((g_ms - start) < ms)
+    SDK_DelayAtLeastUs(ms * 1000U, SystemCoreClock);
+}
+
+static void i2c_pins_init(void)
+{
+    port_pin_config_t cfg = {0};
+    cfg.pullSelect = kPORT_PullUp;      /* helps if the module has weak/no pull-ups */
+    cfg.mux        = OLED_PIN_MUX;
+
+    CLOCK_EnableClock(kCLOCK_PortC);
+    PORT_SetPinConfig(PORTC, 1U, &cfg); /* PTC1 = SCL */
+    PORT_SetPinConfig(PORTC, 2U, &cfg); /* PTC2 = SDA */
+}
+
+static void i2c_bus_init(void)
+{
+    i2c_master_config_t m;
+    I2C_MasterGetDefaultConfig(&m);
+    m.baudRate_Bps = OLED_I2C_BAUD;
+    I2C_MasterInit(OLED_I2C_BASE, &m, CLOCK_GetBusClkFreq());
+}
+
+/* Same as I2C_MasterStop() but gives up instead of waiting forever if the bus never idles. */
+static void i2c_stop_timeout(void)
+{
+    uint32_t guard = 20000U;
+    OLED_I2C_BASE->C1 &= (uint8_t)~(I2C_C1_MST_MASK | I2C_C1_TX_MASK | I2C_C1_TXAK_MASK);
+    while (((OLED_I2C_BASE->S & kI2C_BusBusyFlag) != 0U) && (guard > 0U))
     {
-        __WFI();
+        guard--;
     }
 }
 
-static void all_leds_off(void)
+/* Address-only probe: true if a device ACKs its 7-bit address. */
+static bool i2c_probe(uint8_t addr7)
 {
-    LED_RED_OFF();
-    LED_GREEN_OFF();
-    LED_BLUE_OFF();
+    uint32_t guard = 100000U;
+
+    if (I2C_MasterStart(OLED_I2C_BASE, addr7, kI2C_Write) != kStatus_Success)
+    {
+        i2c_stop_timeout();
+        return false;
+    }
+    while (((OLED_I2C_BASE->S & kI2C_TransferCompleteFlag) == 0U) && (guard-- > 0U))
+    {
+    }
+    bool nak = ((OLED_I2C_BASE->S & kI2C_ReceiveNakFlag) != 0U) || (guard == 0U);
+    OLED_I2C_BASE->S = kI2C_IntPendingFlag; /* clear flag (write 1 to clear) */
+    i2c_stop_timeout();
+    delay_ms(1);
+    return !nak;
 }
 
-/* Returns number of failing words */
-static uint32_t ram_test(void)
+/* ctrl: 0x00 = command bytes follow, 0x40 = display data follows */
+static bool oled_write(uint8_t addr7, uint8_t ctrl, const uint8_t *data, size_t len)
 {
-    uint32_t errors = 0;
-    const uint32_t patterns[] = {0xAAAAAAAAU, 0x55555555U, 0x00000000U, 0xFFFFFFFFU};
+    i2c_master_transfer_t x = {0};
+    x.flags          = kI2C_TransferDefaultFlag;
+    x.slaveAddress   = addr7;
+    x.direction      = kI2C_Write;
+    x.subaddress     = ctrl;
+    x.subaddressSize = 1U;
+    x.data           = (uint8_t *)data;
+    x.dataSize       = len;
+    return I2C_MasterTransferBlocking(OLED_I2C_BASE, &x) == kStatus_Success;
+}
 
-    /* fixed patterns */
-    for (uint32_t p = 0; p < (sizeof(patterns) / sizeof(patterns[0])); p++)
+static bool oled_cmd(uint8_t addr7, uint8_t c)
+{
+    return oled_write(addr7, 0x00U, &c, 1U);
+}
+
+static bool oled_init(uint8_t a)
+{
+    static const uint8_t seq[] = {
+        0xAE,             /* display off */
+        0xD5, 0x80,       /* clock divide */
+        0xA8, 0x3F,       /* multiplex 64 */
+        0xD3, 0x00,       /* display offset */
+        0x40,             /* start line 0 */
+        0x8D, 0x14,       /* charge pump on */
+        0x20, 0x00,       /* horizontal addressing */
+        0xA1,             /* segment remap */
+        0xC8,             /* COM scan direction */
+        0xDA, 0x12,       /* COM pins */
+        0x81, 0xCF,       /* contrast */
+        0xD9, 0xF1,       /* pre-charge */
+        0xDB, 0x40,       /* VCOM detect */
+        0xA4,             /* resume from RAM */
+        0xA6,             /* normal (not inverted) */
+        0xAF              /* display on */
+    };
+    for (size_t i = 0; i < sizeof(seq); i++)
     {
-        for (uint32_t i = 0; i < RAM_TEST_WORDS; i++) g_ram[i] = patterns[p];
-        for (uint32_t i = 0; i < RAM_TEST_WORDS; i++)
-        {
-            if (g_ram[i] != patterns[p]) errors++;
-        }
+        if (!oled_cmd(a, seq[i])) return false;
     }
+    return true;
+}
 
-    /* walking ones */
-    for (uint32_t bit = 0; bit < 32U; bit++)
+static bool oled_fill(uint8_t a, uint8_t pattern)
+{
+    uint8_t buf[16];
+    for (size_t i = 0; i < sizeof(buf); i++) buf[i] = pattern;
+
+    if (!oled_cmd(a, 0x21) || !oled_cmd(a, 0) || !oled_cmd(a, 127)) return false; /* columns */
+    if (!oled_cmd(a, 0x22) || !oled_cmd(a, 0) || !oled_cmd(a, 7))   return false; /* pages   */
+
+    for (uint32_t n = 0; n < (128U * 8U) / sizeof(buf); n++)
     {
-        uint32_t v = 1UL << bit;
-        for (uint32_t i = 0; i < RAM_TEST_WORDS; i++) g_ram[i] = v;
-        for (uint32_t i = 0; i < RAM_TEST_WORDS; i++)
-        {
-            if (g_ram[i] != v) errors++;
-        }
+        if (!oled_write(a, 0x40U, buf, sizeof(buf))) return false;
     }
-
-    /* address-in-data (catches stuck/shorted address lines) */
-    for (uint32_t i = 0; i < RAM_TEST_WORDS; i++) g_ram[i] = (i * 0x01010101U) ^ 0xA5A5A5A5U;
-    for (uint32_t i = 0; i < RAM_TEST_WORDS; i++)
-    {
-        if (g_ram[i] != ((i * 0x01010101U) ^ 0xA5A5A5A5U)) errors++;
-    }
-
-    return errors;
+    return true;
 }
 
 int main(void)
 {
-    /* ---- Board init: keep whichever pair your blinky project used ---- */
+#if USE_BOARD_INIT_HARDWARE
+    BOARD_InitHardware();
+#else
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-    /* If your project uses a single call instead, replace the 3 lines above with:
-     *     BOARD_InitHardware();
-     */
+#endif
 
-    LED_RED_INIT(LOGIC_LED_OFF);
-    LED_GREEN_INIT(LOGIC_LED_OFF);
-    LED_BLUE_INIT(LOGIC_LED_OFF);
+    i2c_pins_init();
+    i2c_bus_init();
 
-    SystemCoreClockUpdate();
-    SysTick_Config(SystemCoreClock / 1000U); /* 1 ms tick */
+    PRINTF("\r\n=== OLED bring-up test (I2C: SCL=PTC1, SDA=PTC2) ===\r\n");
 
-    PRINTF("\r\n==============================\r\n");
-    PRINTF(" FRDM-MCXC444 self-test\r\n");
-    PRINTF("==============================\r\n");
-
-    /* 1. Console works if you can read this */
-    PRINTF("[1] Console        : OK\r\n");
-
-    /* 2. Clock */
-    PRINTF("[2] Core clock     : %u Hz\r\n", (unsigned int)SystemCoreClock);
-
-    /* 3. Unique ID */
-    PRINTF("[3] Unique ID      : %08X-%08X-%08X\r\n",
-           (unsigned int)SIM->UIDMH, (unsigned int)SIM->UIDML, (unsigned int)SIM->UIDL);
-
-    /* 4. SysTick */
-    uint32_t t0 = g_ms;
-    delay_ms(100);
-    uint32_t dt = g_ms - t0;
-    PRINTF("[4] SysTick 100ms  : measured %u ms -> %s\r\n", (unsigned int)dt,
-           (dt >= 99U && dt <= 101U) ? "OK" : "CHECK");
-
-    /* 5. RAM */
-    uint32_t ram_err = ram_test();
-    PRINTF("[5] SRAM test      : %u errors -> %s\r\n", (unsigned int)ram_err,
-           (ram_err == 0U) ? "PASS" : "FAIL");
-
-    /* 6. RGB LED sequence */
-    PRINTF("[6] RGB LED        : watch R -> G -> B\r\n");
-    all_leds_off();
-    LED_RED_ON();   delay_ms(400); LED_RED_OFF();
-    LED_GREEN_ON(); delay_ms(400); LED_GREEN_OFF();
-    LED_BLUE_ON();  delay_ms(400); LED_BLUE_OFF();
-
-    if (ram_err != 0U)
+    for (;;)
     {
-        PRINTF("\r\nRESULT: FAIL\r\n");
-        while (1)
+        uint8_t oled = 0;
+        uint32_t found = 0;
+
+        PRINTF("Scanning I2C...\r\n");
+        for (uint8_t a = 0x08; a <= 0x77; a++)
         {
-            LED_RED_TOGGLE();
-            delay_ms(100);
+            if (i2c_probe(a))
+            {
+                PRINTF("  device at 0x%02X\r\n", a);
+                found++;
+                if ((a == 0x3C) || (a == 0x3D)) oled = a;
+            }
         }
-    }
+        PRINTF("Scan done: %u device(s)\r\n", (unsigned int)found);
 
-    PRINTF("\r\nRESULT: PASS  (green heartbeat, counter prints every second)\r\n");
+        if (oled == 0)
+        {
+            PRINTF("OLED NOT FOUND. Check: VCC on 3V3, GND, SCL->PTC1, SDA->PTC2, jumper contacts,\r\n"
+                   "and Pins-tool I2C instance/ALT for PTC1/PTC2.\r\n\r\n");
+            delay_ms(2000);
+            continue;
+        }
 
-    uint32_t beat = 0;
-    while (1)
-    {
-        LED_GREEN_ON();  delay_ms(100);
-        LED_GREEN_OFF(); delay_ms(900);
-        PRINTF("heartbeat %u  uptime %u ms\r\n", (unsigned int)beat++, (unsigned int)g_ms);
+        PRINTF("OLED at 0x%02X, initialising...\r\n", oled);
+        if (!oled_init(oled))
+        {
+            PRINTF("OLED init failed (command write NACK)\r\n");
+            delay_ms(2000);
+            continue;
+        }
+
+        PRINTF("Cycling white / black / stripes. Watch the screen.\r\n");
+        for (;;)
+        {
+            if (!oled_fill(oled, 0xFF))
+            {
+                break;
+            }
+            PRINTF("white\r\n");
+            delay_ms(1000);
+
+            if (!oled_fill(oled, 0x00))
+            {
+                break;
+            }
+            PRINTF("black\r\n");
+            delay_ms(1000);
+
+            if (!oled_fill(oled, 0xAA))
+            {
+                break;
+            }
+            PRINTF("stripes\r\n");
+            delay_ms(1000);
+        }
+        PRINTF("Display write failed, rescanning\r\n");
     }
 }

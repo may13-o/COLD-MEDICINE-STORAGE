@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "components/storage/stream",
+		"source" : "C:/NXP/mcuxsdk/mcuxsdk/components/storage/stream"
+	}
+}

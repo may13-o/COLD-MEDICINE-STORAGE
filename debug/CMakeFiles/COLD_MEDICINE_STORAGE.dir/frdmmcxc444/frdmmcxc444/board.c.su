@@ -1,0 +1,2 @@
+C:/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.h:469:20:CLOCK_SetLpuart0Clock	16	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/frdmmcxc444/frdmmcxc444/board.c:25:6:BOARD_InitDebugConsole	16	static

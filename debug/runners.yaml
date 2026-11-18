@@ -1,0 +1,29 @@
+# Available runners configured by board.cmake.
+runners:
+- linkserver
+- jlink
+
+# Default flash runner if --runner is not given.
+flash-runner: linkserver
+
+# Default debug runner if --runner is not given.
+debug-runner: linkserver
+
+# Common runner configuration values.
+config:
+  board_dir: C:/NXP/mcuxsdk/mcuxsdk/examples/_boards/frdmmcxc444
+  # Build outputs:
+  bin_file: COLD_MEDICINE_STORAGE.bin
+  elf_file: COLD_MEDICINE_STORAGE.elf
+  hex_file: COLD_MEDICINE_STORAGE.hex
+  # Host tools:
+  gdb: C:/Users/MAITHRI/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi/bin/arm-none-eabi-gdb.exe
+
+# Runner specific arguments
+args:
+  linkserver:
+    - --dt-flash=y
+    - --device=MCXC444:FRDM-MCXC444
+  jlink:
+    - --dt-flash=y
+    - --device=MCXC444

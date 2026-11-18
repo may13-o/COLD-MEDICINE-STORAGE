@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "components/lce",
+		"source" : "C:/NXP/mcuxsdk/mcuxsdk/components/lce"
+	}
+}

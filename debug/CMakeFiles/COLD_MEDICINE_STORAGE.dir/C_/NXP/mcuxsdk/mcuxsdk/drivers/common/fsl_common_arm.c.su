@@ -1,0 +1,2 @@
+C:/NXP/mcuxsdk/mcuxsdk/drivers/common/fsl_common_arm.c:187:13:DelayLoop	16	static
+C:/NXP/mcuxsdk/mcuxsdk/drivers/common/fsl_common_arm.c:217:6:SDK_DelayAtLeastUs	40	static

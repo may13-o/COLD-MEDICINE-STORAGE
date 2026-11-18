@@ -1,0 +1,1 @@
+C:\IOTPROJECT\COLD_MEDICINE_STORAGE\debug\mcux_config.h

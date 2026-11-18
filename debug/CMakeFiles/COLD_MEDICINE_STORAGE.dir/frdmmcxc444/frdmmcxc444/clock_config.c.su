@@ -1,0 +1,6 @@
+C:/NXP/mcuxsdk/mcuxsdk/devices/MCX/MCXC/MCXC444/drivers/fsl_clock.h:630:20:CLOCK_SetSimSafeDivs	8	static
+C:/NXP/mcuxsdk/mcuxsdk/drivers/smc/fsl_smc.h:256:20:SMC_SetPowerModeProtection	16	static
+C:/NXP/mcuxsdk/mcuxsdk/drivers/smc/fsl_smc.h:275:33:SMC_GetPowerModeState	24	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/frdmmcxc444/frdmmcxc444/clock_config.c:55:6:BOARD_InitBootClocks	8	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/frdmmcxc444/frdmmcxc444/clock_config.c:120:6:BOARD_BootClockRUN	8	static
+C:/IOTPROJECT/COLD_MEDICINE_STORAGE/frdmmcxc444/frdmmcxc444/clock_config.c:186:6:BOARD_BootClockVLPR	8	static
